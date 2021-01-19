@@ -8,3 +8,5 @@ Calculator has four modes:
 2. Piano (plays notes on the peizo buzzer)
 3. Logo (shows a custom "Hacked by Peter" logo)
 4. Game (a rudimentary version of Space Invaders)
+
+[HP17BII](willipe53.github.com/repository/hp17bii.png)
