@@ -9,4 +9,4 @@ Calculator has four modes:
 3. Logo (shows a custom "Hacked by Peter" logo)
 4. Game (a rudimentary version of Space Invaders)
 
-
+If you don't have the Arduino GUI just change the *.ino files to *.cpp files and open them in any C++ IDE.
