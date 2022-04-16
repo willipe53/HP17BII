@@ -2,9 +2,9 @@
 #include <Keypad.h>
 
 #define CS    10
-#define EXIT  14
-#define CLEAR 20
-#define SHIFT 18
+#define EXIT   4
+#define CLEAR  1
+#define SHIFT  0
 #define ROWS   7 
 #define COLS   6
 #define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
@@ -12,7 +12,7 @@
 #define CPU_RESTART (*CPU_RESTART_ADDR = CPU_RESTART_VAL);
  
 char keys[ROWS][COLS] = {
-  {'F','G','H','I','J','K'},
+  {'F','G','H','J','K','L'},
   {'S','R','%','L','P','u'},
   {'c','I',240,'(',')','A'},
   {'U','7','8','9','v',245},
@@ -20,8 +20,8 @@ char keys[ROWS][COLS] = {
   {'b','1','2','3','y','-'},
   {'a','0','.','=','z','+'}
 };
-byte rowPins[ROWS] = {7,19,17,4,3,1,0}; 
-byte colPins[COLS] = {21,22,23,8,6,5}; 
+byte rowPins[ROWS] = {19,22,23,5,18,7,15}; 
+byte colPins[COLS] = {21,3,20,6,17,8}; 
 
 bool exitPressed = false;
 bool clearPressed = false;
