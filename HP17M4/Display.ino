@@ -1,3 +1,39 @@
+void testDisplayText2(int row, String text) {
+  int16_t  x1, y1;
+  uint16_t w, h;
+  int x, y;
+  display.getTextBounds(text.c_str(), 0, 0, &x1, &y1, &w, &h);
+  //display.clearDisplay();
+  x = 400-X_OFFSET-w;
+  y = 240-Y_OFFSET-(ROW_HEIGHT*row);
+  display.setCursor(x, y);
+  display.write(text.c_str());
+  display.refresh();
+  Serial.printf("%s written at (%d,%d) row:%d\n", text.c_str(), x, y, row);
+}
+
+void flashLogo() {
+  display.clearDisplay();
+  drawLogo(BLACK);
+  delay(500);
+  drawLogo(WHITE);
+  delay(500);
+  drawLogo(BLACK);
+  delay(500);
+  drawLogo(WHITE);
+  delay(500);
+  drawLogo(BLACK);
+  delay(1000);
+}
+
+void drawLogo(int fgColor) {
+  int bgColor = !fgColor;
+  display.fillRect(0, 0, 400, 240, fgColor);
+  display.fillRect(0, 70, 400, 100, bgColor);
+  display.drawBitmap(0, 70, hplogo, 400, 100, fgColor);
+  display.refresh();
+}
+
 
 void redrawRegisters() {
   Serial.println("TODO: redrawing registers.");
