@@ -1,29 +1,15 @@
-void testDisplayText2(int row, String text) {
-  int16_t  x1, y1;
-  uint16_t w, h;
-  int x, y;
-  display.getTextBounds(text.c_str(), 0, 0, &x1, &y1, &w, &h);
-  //display.clearDisplay();
-  x = 400-X_OFFSET-w;
-  y = 240-Y_OFFSET-(ROW_HEIGHT*row);
-  display.setCursor(x, y);
-  display.write(text.c_str());
-  display.refresh();
-  Serial.printf("%s written at (%d,%d) row:%d\n", text.c_str(), x, y, row);
-}
-
 void flashLogo() {
   display.clearDisplay();
+  //drawLogo(BLACK);
+  //delay(500);
+  //drawLogo(WHITE);
+  //delay(500);
   drawLogo(BLACK);
-  delay(500);
+  delay(250);
   drawLogo(WHITE);
-  delay(500);
+  delay(250);
   drawLogo(BLACK);
   delay(500);
-  drawLogo(WHITE);
-  delay(500);
-  drawLogo(BLACK);
-  delay(1000);
 }
 
 void drawLogo(int fgColor) {
@@ -34,21 +20,30 @@ void drawLogo(int fgColor) {
   display.refresh();
 }
 
+void drawRegText(int row, String text) {
+  int16_t  x1, y1;
+  uint16_t w, h;
+  int x, y;
+  display.getTextBounds(text.c_str(), 0, 0, &x1, &y1, &w, &h);
+  //display.clearDisplay();
+  x = 400-X_OFFSET-w;
+  y = 240-Y_OFFSET-(ROW_HEIGHT*row);
+  display.setCursor(x, y);
+  display.write(text.c_str());
+  display.refresh();
+  if (text.length() > 0) Serial.printf("%s written at x:%d y:%d w:%d h:%d row:%d\n", text.c_str(), x, y, w, h, row);
+}
 
 void redrawRegisters() {
-  Serial.println("TODO: redrawing registers.");
   display.clearDisplay();
   for (int i=0; i<=LAST_REG; i++) {
-//    Serial.printf("TODO: use GFX to redraw register %d as %s\n", i, reg[i].c_str());
-//    int x = 400 - getPixelLength(reg[i]);
-//    for (unsigned int j=0; j<reg[i].length(); j++) {
-//      char digit = reg[i].charAt(j); 
-//      int y = 240 - (i+1)*32;
-//      Serial.printf("   Digit %d (%c) being placed at (%d,%d)\n", j, digit, x, y);
-//      int w = drawDigit(digit, x, y);
-//      x += w;
-//    }
+    drawRegText(i,reg[i]);
   }
+  if (waitingToStore) display.drawBitmap(4, 10, mod_img[0], 104, 30, BLACK);
+  else if (waitingToFetch) display.drawBitmap(4, 10, mod_img[1], 104, 30, BLACK);
+  else if (shiftPressed) display.drawBitmap(4, 10, mod_img[2], 104, 30, BLACK);
+  else if (waitingForMode) display.drawBitmap(4, 10, mod_img[3], 104, 30, BLACK);
+  display.refresh();  
 }
 
 void reformatRegister(int regNum) {
@@ -64,7 +59,7 @@ void reformatRegister(int regNum) {
   }
   reg[regNum] = thousandsSeparated(base.toInt());
   if (dotAt >= 0) {
-    //reg[regNum].concat(dot).concat(deci);
+    reg[regNum] = reg[regNum] + dot + deci;
   }
 }
 
