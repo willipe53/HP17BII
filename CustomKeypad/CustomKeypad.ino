@@ -12,20 +12,16 @@
 #define EXIT   2
 #define CLEAR 20
 #define SHIFT 12
-#define ROWS   7 
-#define COLS   6
+#define ROWS   3 
+#define COLS   10
  
 char keys[ROWS][COLS] = {
-  {'F','G','H','I','J','K'},
-  {'S','R','%','L','P','u'},
-  {'c','I',240,'(',')','A'},
-  {'U','7','8','9','v',245},
-  {'D','4','5','6','w','x'},
-  {'b','1','2','3','y','-'},
-  {'a','0','.','=','z','+'}
+  {'E','b','c','d','e','f','g','h','i','j'},
+  {'k','l','m','n','o','p','q','r','s','C'},
+  {'u','v','w','x','y','z','1','2','3','4'}
 };
-byte rowPins[ROWS] = {7,19,17,4,3,1,0}; 
-byte colPins[COLS] = {21,22,23,8,6,5}; 
+byte rowPins[ROWS] = {23,22,21}; 
+byte colPins[COLS] = {20,19,18,17,16,15,14,13,12,11}; 
 
 bool exitPressed = false;
 bool clearPressed = false;
@@ -59,9 +55,9 @@ void setup(){
   
 void loop(){
   char customKey = customKeypad.getKey();
-  if (digitalRead(EXIT) == 0) resetFunc();
-  if (digitalRead(CLEAR) == 0) clearFunc();
-  if (digitalRead(SHIFT) == 0) shiftFunc();  
+  // if (digitalRead(EXIT) == 0) resetFunc();
+  // if (digitalRead(CLEAR) == 0) clearFunc();
+  // if (digitalRead(SHIFT) == 0) shiftFunc();  
   if (customKey){
     Serial.printf("KEY: %c (%d)\n", customKey, customKey);
   }
