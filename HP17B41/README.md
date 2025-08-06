@@ -2,7 +2,10 @@
 
 This is the code I created in the Arduino IDE to drive a hollowed-out old HP 17BII calculator.  It uses an Adafruit Feather M4 Express chip to drive a Sharp monochrome memory display and a hand-made button-and-diode matrix that I mounted under the keyboard.
 
-Calculator has four modes:
+![HP17Bii.png](../images/HP17Bii.png)
+
+
+## Calculator Modes
 
 1. Calculator (performs as you might expect)
 2. Piano (plays notes on the peizo buzzer)
@@ -11,7 +14,7 @@ Calculator has four modes:
 
 If you don't have the Arduino GUI just change the *.ino files to *.cpp files and open them in any C++ IDE.
 
-Basic calculator tokenizer:
+## Basic Calculator Tokenizer
 
 1. `loop()` in `HP17B41.ino` waits for a key press with `char key = getKeyPressed()`.
 2. It then calls the function associated with that key: `(*fcns[key][currentMode]) (key)`. The default function for any key is `addKeyToDisplay` which can be seen in `initKeyboard()` function in `keyboard.ino`.
